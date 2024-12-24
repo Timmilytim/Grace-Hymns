@@ -1,6 +1,8 @@
 package com.example.gracehyms;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.LinearLayout;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,5 +22,16 @@ public class Dashboard extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+
+//        Switching to the All Songs page
+        LinearLayout btnAllSongs = findViewById(R.id.all_songs);
+
+        btnAllSongs.setOnClickListener(v -> {
+            Intent intent = new Intent(Dashboard.this, AllSongsActivity.class);
+            startActivity(intent);
+        });
+
+
     }
 }
