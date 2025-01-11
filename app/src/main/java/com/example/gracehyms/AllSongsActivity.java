@@ -1,72 +1,36 @@
 package com.example.gracehyms;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
+import java.util.List;
 
 public class AllSongsActivity extends AppCompatActivity {
 
-    private ListView listViewSongs;
-    private ArrayList<Hymn> hymnList;
-    private ArrayList<String> songTitles;
+    private RecyclerView hymnTitles;
+    private HymnAdapter hymnAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Set the layout for this activity
         setContentView(R.layout.activity_all_songs);
 
-        // Initialize UI components
-        listViewSongs = findViewById(R.id.listViewSongs);
+        // Reference the RecyclerView by its ID
+        hymnTitles = findViewById(R.id.hymn_title);
 
-        // Load hymns from the CSV file
-        loadHymnsFromCSV();
+        // Create a list of hymns (You can later replace this with real data from your database)
+        List<Hymn> hymnList = new ArrayList<>();
+        hymnList.add(new Hymn("1", "Amazing Grace", "Ire Olugbala", "1", "1", "Lyrics here", "Orin Yoruba", "Praise", false));
+        hymnList.add(new Hymn("2", "How Great Thou Art", "Bawo ni o se nla", "2", "1", "Lyrics here", "Orin Yoruba", "Worship", false));
 
-        // Extract song titles for display
-        songTitles = new ArrayList<>();
-        for (Hymn hymn : hymnList) {
-            songTitles.add(hymn.getEnglishTitle() + " - " + hymn.getYorubaTitle());
-        }
+        // Initialize the adapter with the hymn list
+        hymnAdapter = new HymnAdapter(this, hymnList);
 
-        // Set up the adapter for the ListView
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                this,
-                android.R.layout.simple_list_item_1,
-                songTitles
-        );
-        listViewSongs.setAdapter(adapter);
-
-        // Handle click events on the song list
-        listViewSongs.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Hymn selectedHymn = hymnList.get(position);
-                Toast.makeText(AllSongsActivity.this, "Selected: " + selectedHymn.getEnglishTitle(), Toast.LENGTH_SHORT).show();
-
-                // Pass selected hymn details to another activity if needed
-//                Intent intent = new Intent(AllSongsActivity.this, HymnDetailActivity.class);
-//                intent.putExtra("hymn", selectedHymn); // You need to make Hymn implement Serializable or Parcelable
-//                startActivity(intent);
-            }
-        });
-    }
-
-    private void loadHymnsFromCSV() {
-        // Use the CSVReader utility to load hymns
-        hymnList = CSVReader.readHymnsFromCSV(this, "Hymns.csv");
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent(AllSongsActivity.this, Dashboard.class);
-        startActivity(intent);
-        finish();
+        // Set up RecyclerView with the layout manager and adapter
+        hymnTitles.setLayoutManager(new LinearLayoutManager(this));
+        hymnTitles.setAdapter(hymnAdapter);
     }
 }

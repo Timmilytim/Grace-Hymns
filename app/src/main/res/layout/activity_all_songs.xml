@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="@color/custom">
+    android:background="@color/custom"
+    tools:context=".AllSongsActivity">
 
     <!-- Title -->
     <TextView
@@ -19,13 +20,12 @@
         android:paddingBottom="8dp"
         android:textColor="@color/white" />
 
-    <!-- ListView for Songs -->
-    <ListView
-        android:id="@+id/listViewSongs"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/hymn_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/custom"
-        android:divider="@color/white"
-        android:dividerHeight="1dp"
-        android:paddingTop="8dp" />
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:padding="8dp"/>
+
 </LinearLayout>

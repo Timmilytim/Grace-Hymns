@@ -1,5 +1,7 @@
 package com.example.gracehyms;
 
+import java.util.List;
+
 public class Hymn {
     private String id;
     private String englishTitle;
@@ -10,6 +12,7 @@ public class Hymn {
     private String yorubaLyrics;
     private String type;
     private boolean isFavorite;
+    private List<String> categories;
 
     // Constructor
     public Hymn(String id, String englishTitle, String yorubaTitle, String number, String verseNumber,
@@ -23,6 +26,7 @@ public class Hymn {
         this.yorubaLyrics = yorubaLyrics;
         this.type = type;
         this.isFavorite = isFavorite;
+//        this.categories = categories;
     }
 
     // Getters
@@ -60,5 +64,9 @@ public class Hymn {
 
     public boolean isFavorite() {
         return isFavorite;
+    }
+
+    public List<String> getCategories() {
+        return categories;
     }
 }
