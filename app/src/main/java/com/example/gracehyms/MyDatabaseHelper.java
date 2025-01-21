@@ -112,6 +112,44 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         return hymnList;
     }
 
+    public List<Hymn> getHymnVersesById(String hymnId) {
+        SQLiteDatabase db = null;
+        Cursor cursor = null;
+        List<Hymn> hymnVerses = new ArrayList<>();
+
+        try {
+            db = this.getReadableDatabase();
+            String query = "SELECT * FROM " + TABLE_HYMNS + " WHERE " + COLUMN_ID + " = ? ORDER BY " + COLUMN_VERSE_NUMBER;
+            cursor = db.rawQuery(query, new String[]{hymnId});
+
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    String id = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ID));
+                    String englishTitle = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ENGLISH_TITLE));
+                    String yorubaTitle = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_YORUBA_TITLE));
+                    String number = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NUMBER));
+                    String verseNumber = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_VERSE_NUMBER));
+                    String englishLyrics = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ENGLISH_LYRICS));
+                    String yorubaLyrics = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_YORUBA_LYRICS));
+                    String type = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_TYPE));
+                    boolean isFavorite = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_IS_FAVORITE)) == 1;
+
+                    Hymn hymn = new Hymn(id, englishTitle, yorubaTitle, number, verseNumber, englishLyrics, yorubaLyrics, type, isFavorite);
+                    hymnVerses.add(hymn);
+                } while (cursor.moveToNext());
+            }
+        } catch (Exception e) {
+            Log.e("Database", "Error fetching hymn verses by ID: " + e.getMessage());
+        } finally {
+            if (cursor != null) cursor.close();
+            if (db != null) db.close();
+        }
+
+        return hymnVerses;
+    }
+
+
+
     private void copyDatabaseFromAssets(Context context) throws IOException {
         InputStream inputStream = context.getAssets().open("databases/HymnBook.db");
         File outFile = new File(context.getDatabasePath(DATABASE_NAME).getAbsolutePath());

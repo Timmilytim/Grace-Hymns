@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="16dp"
+    android:background="@color/white"
+    tools:context=".HymnDetailsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <!-- Left Column: Hymn Details -->
+            <LinearLayout
+                android:layout_width="277dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <!-- Hymn Number -->
+                <TextView
+                    android:id="@+id/tvHymnNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="Hymn Number"
+                    android:textColor="@color/custom"
+                    android:textSize="35sp"
+                    android:textStyle="bold" />
+
+                <!-- Hymn Title (English) -->
+                <TextView
+                    android:id="@+id/tvHymnTitleEnglish"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="Hymn Title (English)"
+                    android:textColor="@color/custom"
+                    android:textAlignment="center"
+                    android:textSize="28sp"
+                    android:textStyle="bold" />
+
+                <!-- Hymn Title (Yoruba) -->
+                <TextView
+                    android:id="@+id/tvHymnTitleYoruba"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hymn Title (Yoruba)"
+                    android:textColor="@color/custom"
+                    android:textSize="28sp"
+                    android:textAlignment="center"
+                    android:textStyle="bold"
+                    />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <!-- Section: English Lyrics -->
+        <TextView
+            android:id="@+id/tvEnglishLyricsHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="ENGLISH"
+            android:textSize="26sp"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textColor="@color/custom" />
+
+        <!-- English Lyrics Content -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <!-- English Lyrics Content -->
+            <LinearLayout
+                android:id="@+id/tvEnglishLyrics"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+            <!-- Repeat similar blocks for each verse -->
+        </LinearLayout>
+
+        <!-- Section: Yoruba Lyrics -->
+        <TextView
+            android:id="@+id/tvYorubaLyricsHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="YORUBA"
+            android:textSize="26sp"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textColor="@color/custom" />
+
+        <!-- Yoruba Lyrics Content -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:id="@+id/tvYorubaLyrics"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+            <!-- Repeat similar blocks for each verse -->
+        </LinearLayout>
+
+        <!-- Right Column: Favorite Button -->
+        <ImageButton
+            android:id="@+id/btnFavorite"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/favorite"
+            android:contentDescription="Favorite Button"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:layout_gravity="right" />
+
+    </LinearLayout>
+</ScrollView>

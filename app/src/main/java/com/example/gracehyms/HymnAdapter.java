@@ -1,6 +1,7 @@
 package com.example.gracehyms;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,13 @@ public class HymnAdapter extends RecyclerView.Adapter<HymnAdapter.HymnViewHolder
         holder.tvEnglishTitle.setText(hymn.getEnglishTitle());
         holder.tvYorubaTitle.setText(hymn.getYorubaTitle());
         holder.tvHymnNumber.setText(String.valueOf(hymn.getNumber())); // Display hymn number
+
+        // Set click listener to pass hymn ID to HymnDetailsActivity
+        holder.itemView.setOnClickListener(view -> {
+            Intent intent = new Intent(context, HymnDetailsActivity.class);
+            intent.putExtra("hymnId", hymn.getId()); // Pass the selected hymn ID
+            context.startActivity(intent);
+        });
     }
 
     @Override

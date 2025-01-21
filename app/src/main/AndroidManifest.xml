@@ -9,6 +9,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity
+            android:name=".HymnDetailsActivity"
+            android:exported="false" />
+        <activity
             android:name=".AllSongsActivity"
             android:exported="false" />
         <activity
