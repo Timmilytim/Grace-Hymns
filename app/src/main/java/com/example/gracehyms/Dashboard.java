@@ -25,11 +25,18 @@ public class Dashboard extends AppCompatActivity {
 
         // Switching to the All Songs page
         LinearLayout btnAllSongs = findViewById(R.id.all_songs);
+        LinearLayout btnNumbers = findViewById(R.id.numbers);
 
         btnAllSongs.setOnClickListener(v -> {
             // Create an Intent to open the AllSongsActivity
             Intent intent = new Intent(Dashboard.this, AllSongsActivity.class);
             startActivity(intent);
         });
+
+        btnNumbers.setOnClickListener(v ->{
+            Intent intent = new Intent(Dashboard.this, HymnNumbersActivity.class);
+            startActivity(intent);
+        });
+
     }
 }
