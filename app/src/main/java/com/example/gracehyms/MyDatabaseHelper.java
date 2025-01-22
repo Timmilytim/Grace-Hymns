@@ -1,5 +1,6 @@
 package com.example.gracehyms;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -148,6 +149,32 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         return hymnVerses;
     }
 
+    public void updateFavoriteStatus(String hymnId, boolean isFavorite) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_IS_FAVORITE, isFavorite ? 1 : 0);
+
+        int rowsAffected = db.update(TABLE_HYMNS, values, COLUMN_ID + " = ?", new String[]{hymnId});
+        Log.d("Database", "Updated favorite status for hymn ID: " + hymnId + ". Rows affected: " + rowsAffected);
+        db.close();
+    }
+
+    public boolean getFavoriteStatus(String hymnId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_HYMNS,
+                new String[]{COLUMN_IS_FAVORITE},
+                COLUMN_ID + " = ?",
+                new String[]{hymnId},
+                null, null, null);
+
+        boolean isFavorite = false;
+        if (cursor != null && cursor.moveToFirst()) {
+            isFavorite = cursor.getInt(0) == 1;
+            cursor.close();
+        }
+        db.close();
+        return isFavorite;
+    }
 
 
     private void copyDatabaseFromAssets(Context context) throws IOException {

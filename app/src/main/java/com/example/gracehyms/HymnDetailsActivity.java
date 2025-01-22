@@ -26,7 +26,6 @@ public class HymnDetailsActivity extends AppCompatActivity {
         tvHymnNumber = findViewById(R.id.tvHymnNumber);
         tvHymnTitleEnglish = findViewById(R.id.tvHymnTitleEnglish);
         tvHymnTitleYoruba = findViewById(R.id.tvHymnTitleYoruba);
-
         btnFavorite = findViewById(R.id.btnFavorite);
 
         // Get the hymn ID from the Intent
@@ -34,16 +33,30 @@ public class HymnDetailsActivity extends AppCompatActivity {
 
         if (hymnId != null) {
             fetchHymnDetails(hymnId);
-        }
 
-        // Handle Favorite button click
-        btnFavorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Handle the logic for marking/unmarking as favorite
-            }
-        });
+            // Set the initial state of the favorite button
+            MyDatabaseHelper dbHelper = new MyDatabaseHelper(this);
+            boolean isFavorite = dbHelper.getFavoriteStatus(hymnId);
+            updateFavoriteButtonUI(isFavorite);
+
+            // Handle Favorite button click
+            btnFavorite.setOnClickListener(v -> {
+                boolean newFavoriteStatus = !isFavorite; // Toggle the status
+                dbHelper.updateFavoriteStatus(hymnId, newFavoriteStatus);
+                updateFavoriteButtonUI(newFavoriteStatus); // Update the UI
+            });
+        }
     }
+
+    // Helper method to update favorite button icon based on status
+    private void updateFavoriteButtonUI(boolean isFavorite) {
+        if (isFavorite) {
+            btnFavorite.setImageResource(R.drawable.favorite); // Replace with your filled heart icon
+        } else {
+            btnFavorite.setImageResource(R.drawable.recent); // Replace with your outline heart icon
+        }
+    }
+
 
     // Method to fetch hymn details based on hymn ID
     private void fetchHymnDetails(String hymnId) {
